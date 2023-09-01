@@ -1,0 +1,352 @@
+@font-face {
+	font-family: Inter;
+	src: url('./Inter.var.woff2');
+}
+
+* {
+	box-sizing: border-box;
+	font-family: inherit;
+}
+
+:root, ::backdrop {
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+	font-size: 22px;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+
+	/* Colors */
+	--foreground: black;
+	--background: white;
+	--speed: var(--foreground);
+	--speed-units: #AAA;
+	--ride-stats: #444;
+
+	--options-menu-background: var(--background);
+	--button-background: #F4F4F4;
+	--button-border: #CCC;
+	--button-hover-background: var(--button-border);
+	--dialog-backdrop: #6665;
+	--dialog-blur: 1rem
+}
+
+body {
+	display: grid;
+	place-items: center;
+	margin: 0;
+	background-color: var(--background);
+	color: var(--foreground);
+	height: 100svh;
+	user-select: none;
+}
+
+#app {
+	width: 100%;
+	max-width: 40rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 100svh;
+	padding-block: 2rem;
+}
+
+.hidden {
+	display: none;
+}
+
+#geolocation-info-dialog[open] {
+	max-width: none;
+	max-height: none;
+	width: 100svw;
+	height: 100svh;
+	border-radius: 0;
+	display: flex;
+	justify-content: center;
+}
+
+#geolocation-info-dialog-inner-wrapper {
+	max-width: 40rem;
+	padding: 1rem;
+}
+
+#geolocation-info-dialog-okay-button {
+	font-size: 0.9rem;
+	line-height: 100%;
+	padding: 0.7rem;
+	border-radius: 0.7rem;
+	float: right;
+	margin-right: 0.2rem;
+	margin-top: 1rem;
+}
+
+#error {
+	position: absolute;
+	top: 1rem;
+	text-align: center;
+	background: #db2e33;
+	color: white;
+	padding-block: 0.2rem;
+	padding-inline: 0.7rem;
+	border-radius: 0.5rem;
+	opacity: 0;
+	transition: opacity 300ms;
+	font-size: 0.85rem;
+}
+
+#error.visible {
+	opacity: 1;
+}
+
+#speed-container {
+	text-align: center;
+	margin-top: 5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+}
+
+#speed {
+	font-size: 8rem;
+	font-weight: 500;
+	color: var(--speed);
+	line-height: 100%;
+}
+
+#units {
+	font-size: 1.7rem;
+	color: var(--speed-units);
+	font-weight: 500;
+}
+
+#time {
+	font-weight: 500;
+	font-size: 1.4rem;
+}
+
+.bike-ride-units {
+	color: var(--speed-units)
+}
+
+#bike-ride-info {
+	font-size: 1.3rem;
+	font-weight: 600;
+	position: absolute;
+	bottom: 1.5rem;
+	left: 1.5rem;
+	color: var(--ride-stats)
+}
+
+/* #bike-ride-controls {
+	display: flex;
+	gap: 0.5rem;
+} */
+
+/* #begin-biking-button {
+	font-size: 1rem;
+	font-weight: 500;
+	padding: 0.95rem;
+	background: #3eb642;
+	color: #dcffdd;
+	border: none;
+	border-radius: 0.8rem;
+} */
+
+/* #begin-biking-button.begun {
+	background: hsl(355, 49%, 48%);
+	color: hsl(355, 100%, 93%);
+} */
+
+dialog {
+	width: calc(min(100vw, 30rem) - 2rem);
+	border: none;
+	border-radius: clamp(1rem, calc(10vw - 0.5rem), 2rem);
+	height: calc(100vh - 2rem);
+	background-color: var(--options-menu-background);
+	color: inherit;
+	padding: 0;
+}
+
+dialog::backdrop {
+	background: var(--dialog-backdrop);
+	backdrop-filter: blur(var(--dialog-blur));
+}
+
+#theme-options-container {
+	width: 100%;
+}
+
+#options-menu {
+	padding: 1.5rem;
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+#options-menu-open-button {
+	opacity: 0.4
+}
+
+#options-dialog {
+	font-size: 18px;
+}
+
+.open-options-menu-button {
+	background-color: transparent;
+	border: none;
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem;
+}
+
+#options-menu-close-button {
+	opacity: 0.8;
+	background-color: transparent;
+	border: none;
+	position: absolute;
+	top: 1.2rem;
+	right: 1.2rem;
+}
+
+#options-menu > .bottom-section {
+	text-align: center;
+	/* Flexbox ftw */
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+}
+
+
+#options-menu section {
+	margin-bottom: 1rem;
+}
+
+#options-menu section > div {
+	display: flex;
+	gap: 0.2rem
+}
+
+#options-menu h2 {
+	margin: 0;
+	font-size: 1.4rem
+}
+
+#theme-customization-menu {
+	flex-direction: column;
+}
+
+#theme-customization-menu > .color-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(8.6rem, 1fr));
+	gap: 0.2rem;
+}
+
+#theme-customization-menu .color-container > button {
+	padding-block: 0.5rem
+}
+
+button {
+	background-color: var(--button-background);
+	border: 0.1rem solid var(--button-border);
+	border-radius: 0.5rem;
+	padding: 0.4rem;
+	color: inherit;
+	-webkit-tap-highlight-color: transparent;
+}
+
+button:hover {
+	background-color: var(--button-hover-background);
+	cursor: pointer
+}
+
+.color-picker > .range-container {
+	display: grid;
+	grid-template-columns: max-content auto;
+	gap: 0.2rem
+	
+}
+
+.color-picker > * {
+	width: calc(80% + 2rem);
+	margin-inline: auto;
+	display: block
+}
+
+.color-picker .accept-button {
+	margin-bottom: 1rem;
+	padding-block: 0.7rem
+}
+
+.color-picker input {
+	margin-bottom: 1rem;
+}
+
+.color-picker {
+	width: 100%
+}
+
+.radio-button.active {
+	background-color: var(--current-period-background);
+	border-color: var(--current-period-border);
+}
+
+.slightly-hidden {
+	opacity: 70%
+}
+
+svg {
+	width: 2.5rem
+}
+
+a {
+	color: #1c6ce4;
+	text-decoration: none;
+}
+
+/* Reset styles */
+input[type="range"] {
+	-webkit-appearance: none;
+	-appearance: none;
+	background: transparent;
+	cursor: pointer;
+	width: 100%;
+}
+
+/* Track */
+input[type="range"]::-webkit-slider-runnable-track {
+	background: #8885;
+	height: 0.3rem;
+	border-radius: 999px;
+}
+
+input[type="range"]::-moz-range-track {
+	background: #8885;
+	height: 0.3rem;
+	border-radius: 999px;
+}
+
+/* Thumb */
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	--track-height: 0.3rem;
+	--size: 0.9rem;
+	width: var(--size);
+	height: var(--size);
+	margin-top: calc(var(--track-height) / 2 - var(--size) / 2);
+	background: rgb(0, 94, 255);
+	border-radius: 999px;
+}
+
+input[type="range"]::-moz-range-thumb {
+	border: none;
+	border-radius: 999px;
+	background: rgb(0, 94, 255);
+	width: 0.9rem;
+	height: 0.9rem;
+}

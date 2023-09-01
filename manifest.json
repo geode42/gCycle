@@ -1,0 +1,17 @@
+{
+	"short_name": "gBike",
+	"name": "gBike",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#222",
+	"scope": "/",
+	"theme_color": "#0088FF",
+	"description": "A speedometer intended for biking",
+
+	"icons": [
+		{
+			"src": "favicon.svg",
+			"sizes": "any"
+		}
+	]
+}
